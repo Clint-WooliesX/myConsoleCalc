@@ -94,7 +94,8 @@ namespace ConsoleCalc
                     default:
                         {
                             Main();
-                            break;
+                        Console.WriteLine();
+                        break;
                         }
                 }
             
