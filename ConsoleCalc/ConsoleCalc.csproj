@@ -5,4 +5,12 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Colorful.Console" />
+    <None Remove="FIGlet.Net" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Colorful.Console" Version="1.2.15" />
+    <PackageReference Include="FIGlet.Net" Version="1.1.2" />
+  </ItemGroup>
 </Project>
