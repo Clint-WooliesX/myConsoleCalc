@@ -7,7 +7,7 @@ namespace ConsoleCalc
     class Program
     {
         public static String[] menuOptions = { "Quit", "Addition", "Subtraction", "Multiplication", "Division", "Power", "Square root" };
-
+        public static int menuSelection = 0;
         static void Main()
         {
             Console.WriteAscii("C# Calculator", Color.Goldenrod);  
@@ -19,17 +19,37 @@ namespace ConsoleCalc
 
         static void Menu(string[] input)
         {
+            
             Console.Clear();
             Console.WriteLine("C# Calculator", Color.GreenYellow);
             Console.WriteLine("-----------------", Color.GreenYellow);
             for (int i = 0; i <= input.Length - 1; i++)
             {
+                if (i == menuSelection)
+                {
+                    Console.BackgroundColor = Color.White;
+                    Console.ForegroundColor = Color.Black;
+                }
                 Console.Write($"{i}. ", Color.Blue);
                   Console.WriteLine($"{input[i]}");
+                Console.ResetColor();
             }
             Console.WriteLine("-----------------", Color.GreenYellow);
-            Console.Write("Enter selection > ", Color.Blue);
+            Console.Write("Up/Down and Enter to Select", Color.Blue);
+            Console.CursorVisible = false;
             ConsoleKeyInfo name = Console.ReadKey();
+            if (name.Key == ConsoleKey.DownArrow)
+            {
+                menuSelection+= 1;
+                if (menuSelection > menuOptions.Length - 1) menuSelection = 0;
+                Menu(menuOptions);
+            }
+            if (name.Key == ConsoleKey.UpArrow)
+            {
+                menuSelection -= 1;
+                if (menuSelection < 0 ) menuSelection = menuOptions.Length - 1;
+                Menu(menuOptions);
+            }
             Char userInput = name.KeyChar;
     
                 switch (userInput)
