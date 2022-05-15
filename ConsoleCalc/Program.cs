@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 using System.Drawing;
 using Console = Colorful.Console;
 namespace ConsoleCalc
@@ -10,7 +11,7 @@ namespace ConsoleCalc
 
         static void Main()
         {
-            Console.WriteAscii("C# Calculator", Color.Goldenrod);
+            Console.WriteAscii("C# Calculator", Color.Goldenrod);  
             Console.WriteLine("Developed by Clint Kingston 2022", Color.Goldenrod);
             AnyKey();
             Menu(menuOptions);
@@ -89,21 +90,51 @@ namespace ConsoleCalc
         {
             Console.Write("Enter a number > ");
             string input = Console.ReadLine();
-            if (!Regex.IsMatch(input, @"[^0-9-]")) { 
-                return Int32.Parse(input);
+                    try
+                    {
+                        return Int32.Parse(input);
+                    }
+                    catch
+                    {
+                Console.WriteLine("Invalid entry!", Color.Orange);
+                return GetNumber();
             }
-            Console.Write("Invalid entry! Try Again > ", Color.Orange);
-            return GetNumber();
+
+        }
+
+        static double[] NumberArray()
+        {
+
+            bool moreData = true;
+            var numbers = new List<double>();
+            while (moreData == true)
+            {
+                Console.Write("Input a number or press enter > ");
+                string num = Console.ReadLine();
+                if (num.Length > 0)
+                {
+                    try
+                    {
+                        numbers.Add(Int32.Parse(num));
+                    }
+                    catch
+                    {
+                        Console.WriteLine("invalid number!");
+                    }
+                }
+                else moreData = false;
+            }
+            double[] numberArray = numbers.ToArray();
+            return numberArray;
         }
 
         static void Addition()
         {
             Console.Clear();
             Console.WriteLine("Addition:", Color.GreenYellow);
-            double num1 = GetNumber();
-            double num2 = GetNumber();
+            double[] numbers = NumberArray();            
             Console.Clear();
-            Console.WriteLine($"{num1} + {num2} = {Add(num1, num2)}", Color.Green);
+            Console.WriteLine($"{String.Join(" + ", numbers)} = {Add(numbers)}", Color.Green);
             AnyKey();
             Menu(menuOptions);
         }
@@ -112,10 +143,9 @@ namespace ConsoleCalc
         {
             Console.Clear();
             Console.WriteLine("Subtraction:", Color.GreenYellow);
-            double num1 = GetNumber();
-            double num2 = GetNumber();
+            double[] numbers = NumberArray();
             Console.Clear();
-            Console.WriteLine($"{num1} - {num2} = {Subtract(num1, num2)}", Color.Green);
+            Console.WriteLine($"{String.Join(" - ", numbers)} = {Subtract(numbers)}", Color.Green);
             AnyKey();
             Menu(menuOptions);
         }
@@ -124,10 +154,9 @@ namespace ConsoleCalc
         {
             Console.Clear();
             Console.WriteLine("Multiply:", Color.GreenYellow);
-            double num1 = GetNumber();
-            double num2 = GetNumber();
+            double[] numbers = NumberArray();
             Console.Clear();
-            Console.WriteLine($"{num1} * {num2} = {Multiply(num1, num2)}", Color.Green);
+            Console.WriteLine($"{String.Join(" * ", numbers)} = {Multiply(numbers)}", Color.Green);
             AnyKey();
             Menu(menuOptions);
         }
@@ -136,10 +165,9 @@ namespace ConsoleCalc
         {
             Console.Clear();
             Console.WriteLine("Divide:", Color.GreenYellow);
-            double num1 = GetNumber();
-            double num2 = GetNumber();
+            double[] numbers = NumberArray();
             Console.Clear();
-            Console.WriteLine($"{num1} / {num2} = {Divide(num1, num2)}", Color.Green);
+            Console.WriteLine($"{String.Join(" / ", numbers)} = {Divide(numbers)}", Color.Green);
             AnyKey();
             Menu(menuOptions);
         }
@@ -171,27 +199,46 @@ namespace ConsoleCalc
 
 
 
-        static double Add(double num1, double num2)
+        static double Add(double[] numbers)
         {
-            return num1 + num2;
+            double total=0;
+            foreach (var value in numbers)
+            {
+                total += value;
+            }
+            return total;
         }
 
-        static double Subtract(double num1, double num2)
+        static double Subtract(double[] numbers)
         {
-            return num1 - num2;
+            double total = numbers[0];
+            for (int i = 1; i <= numbers.Length - 1; i++)
+            {
+                total -= numbers[i];
+            }
+            return total;
         }
 
-        static double Multiply(double num1, double num2)
+        static double Multiply(double[] numbers)
         {
-            return num1 * num2;
+            double total = numbers[0];
+            for(int i = 1;i<=numbers.Length-1;i++)
+            {
+                total = total * numbers[i];
+            }
+            return total;
         }
 
-        static double Divide(double num1, double num2)
+        static double Divide(double[] numbers)
         {
-            return num1 / num2;
+            double total = numbers[0];
+            for (int i = 1; i <= numbers.Length - 1; i++)
+            {
+                total = total / numbers[i];
+            }
+            return total;
         }
 
-
-}
+    }
 
 }
