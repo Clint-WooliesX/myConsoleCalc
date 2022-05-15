@@ -11,7 +11,8 @@ namespace ConsoleCalc
         static void Main()
         {
             Console.WriteAscii("C# Calculator", Color.Goldenrod);  
-            Console.WriteLine("Developed by Clint Kingston 2022", Color.Goldenrod);
+            Console.WriteAscii("Developed by ", Color.DarkBlue);
+            Console.WriteAscii("Clint Kingston 2022", Color.DarkBlue);
             AnyKey();
             Menu(menuOptions);
         }
@@ -27,7 +28,7 @@ namespace ConsoleCalc
                   Console.WriteLine($"{input[i]}");
             }
             Console.WriteLine("-----------------", Color.GreenYellow);
-            Console.Write("Enter selection > ");
+            Console.Write("Enter selection > ", Color.Blue);
             ConsoleKeyInfo name = Console.ReadKey();
             Char userInput = name.KeyChar;
     
@@ -80,7 +81,7 @@ namespace ConsoleCalc
         static void AnyKey()
         {
             Console.WriteLine();
-            Console.Write("Press any key to continue... ");
+            Console.Write("Press any key to continue... ",Color.Purple);
             Console.ReadKey();
             Console.Clear();
         }
@@ -95,7 +96,7 @@ namespace ConsoleCalc
                     }
                     catch
                     {
-                Console.WriteLine("Invalid entry!", Color.Orange);
+                Console.WriteLine("Invalid entry!", Color.Red);
                 return GetNumber();
             }
 
@@ -118,7 +119,7 @@ namespace ConsoleCalc
                     }
                     catch
                     {
-                        Console.WriteLine("invalid number!");
+                        Console.WriteLine("invalid number!", Color.Red);
                     }
                 }
                 else moreData = false;
